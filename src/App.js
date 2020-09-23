@@ -5,16 +5,14 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      message: "Ready"
+      message: "Ready",
+      counter: 0
     };
   }
 
   handleEvent = (event) => {
-    if (event.type === "mousedown") {
-      this.setState({ message: "Down" });
-    } else {
-      this.setState({ message: "Up" });
-    }
+    this.setState({ counter: this.state.counter + 1 }, 
+      () => this.setState({ message: `${event.type}: ${this.state.counter}` }));
   }
 
   render() {
@@ -26,8 +24,7 @@ export default class App extends Component {
         <div className="text-center">
           <button
             className="btn btn-primary"
-            onMouseDown={ this.handleEvent }
-            onMouseUp={ this.handleEvent }
+            onClick={ this.handleEvent }
           >
             Click Me
           </button>
