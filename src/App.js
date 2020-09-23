@@ -6,20 +6,23 @@ export default class App extends Component {
 
     this.state = {
       message: "Ready",
-      counter: 0
+      counter: 0,
+      theme: "secondary"
     };
   }
 
   handleEvent = (event) => {
     event.persist();
-    this.setState({ counter: this.state.counter + 1 }, 
-      () => this.setState({ message: `${event.type}: ${this.state.counter}` }));
+    this.setState({ 
+      counter: this.state.counter + 1,
+      theme: event.target.innerText === "Normal" ? "primary" : "danger"
+      }, () => this.setState({ message: `${event.type}: ${this.state.counter}` }));
   }
 
   render() {
     return (
       <div className="m-2">
-        <div className="h4 bg-primary text-white text-center p-2">
+        <div className={ `h4 bg-${this.state.theme} text-white text-center p-2` }>
           { this.state.message }
         </div>
         <div className="text-center">
@@ -27,7 +30,13 @@ export default class App extends Component {
             className="btn btn-primary"
             onClick={ this.handleEvent }
           >
-            Click Me
+            Normal
+          </button>
+          <button
+            className="btn btn-danger"
+            onClick={ this.handleEvent }
+          >
+            Danger
           </button>
         </div>
       </div>
