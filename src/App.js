@@ -11,6 +11,7 @@ export default class App extends Component {
   }
 
   handleEvent = (event) => {
+    event.persist();
     this.setState({ counter: this.state.counter + 1 }, 
       () => this.setState({ message: `${event.type}: ${this.state.counter}` }));
   }
